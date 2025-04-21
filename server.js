@@ -116,9 +116,14 @@ app.get("/refresh", async (req, res) => {
   }
 });
 
-// Serve the chart image directly
+// Serve chart image with fallback if it doesn't exist
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/chart.png"));
+  const chartPath = path.join(__dirname, "public/chart.png");
+  if (fs.existsSync(chartPath)) {
+    res.sendFile(chartPath);
+  } else {
+    res.status(404).send("Chart not generated yet. Please visit /refresh first.");
+  }
 });
 
 app.listen(PORT, () => {
