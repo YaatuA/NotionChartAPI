@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Progress Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="chart" width="800" height="400"></canvas>
+  <script>
+    window.renderChart = (labels, data) => {
+      const ctx = document.getElementById('chart').getContext('2d');
+
+      // Convert YYYY-MM-DD to MM-DD for display
+      const formattedLabels = labels.map(dateStr => {
+        const [year, month, day] = dateStr.split("-");
+        return `${month}-${day}`;
+      });
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: formattedLabels,
+          datasets: [{
+            label: 'Daily Progress (%)',
+            data,
+            fill: false,
+            borderWidth: 2,
+            borderColor: 'blue',
+            pointRadius: 3
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: false  // removes chart title
+            },
+            legend: {
+              display: false  // removes legend label
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          }
+        }
+      });
+    };
+  </script>
+</body>
+</html>

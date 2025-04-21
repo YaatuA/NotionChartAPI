@@ -1,0 +1,26 @@
+{
+  "name": "notionchartapi",
+  "version": "1.0.0",
+  "description": "Visually displays daily productivity progress on a line chart from Notion database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YaatuA/NotionChartAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YaatuA/NotionChartAPI/issues"
+  },
+  "homepage": "https://github.com/YaatuA/NotionChartAPI#readme",
+  "dependencies": {
+    "@notionhq/client": "^2.3.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "puppeteer": "^24.6.1"
+  }
+}
