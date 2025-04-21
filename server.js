@@ -99,7 +99,12 @@ async function generateChartImage({ labels, data }) {
   console.log("Chart image saved to public/chart.png");
 }
 
-// Refresh chart endpoint
+// Serve refresh UI page at /view
+app.get("/view", (req, res) => {
+  res.sendFile(path.join(__dirname, "views/index.html"));
+});
+
+// Trigger chart refresh
 app.get("/refresh", async (req, res) => {
   try {
     const chartData = await fetchProgressData();
@@ -111,7 +116,7 @@ app.get("/refresh", async (req, res) => {
   }
 });
 
-// Show chart image
+// Serve the chart image directly
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/chart.png"));
 });

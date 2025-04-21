@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Progress Chart</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .chart-container {
+      position: relative;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #refresh-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+      padding: 6px;
+    }
+
+    #refresh-btn:hover {
+      opacity: 1;
+    }
+
+    #refresh-icon {
+      width: 18px;
+      height: 18px;
+      fill: #555;
+      transition: transform 0.4s ease;
+    }
+
+    .spinning {
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+
+    #chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading {
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="chart-container">
+    <button id="refresh-btn" onclick="refreshChart()" title="Refresh chart">
+      <svg id="refresh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4V1L7 6l5 5V7c2.76 0 5 2.24 5 5a5 5 0 0 1-8.9 3H6.26a7 7 0 0 0 13.48-2c0-1.85-.71-3.53-1.89-4.77z"/>
+      </svg>
+    </button>
+    <img id="chart" src="/chart.png" alt="Progress Chart">
+  </div>
+
+  <script>
+    async function refreshChart() {
+      const icon = document.getElementById("refresh-icon");
+      const img = document.getElementById("chart");
+
+      icon.classList.add("spinning");
+      img.classList.add("loading");
+
+      try {
+        await fetch("/refresh");
+        img.src = `/chart.png?t=${new Date().getTime()}`;
+      } catch (err) {
+        alert("Failed to refresh chart.");
+        console.error(err);
+      } finally {
+        setTimeout(() => {
+          icon.classList.remove("spinning");
+          img.classList.remove("loading");
+        }, 800); // match spin duration
+      }
+    }
+  </script>
+</body>
+</html>
