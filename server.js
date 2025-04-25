@@ -93,7 +93,7 @@ async function generateChartImage({ labels, data }) {
   await new Promise(resolve => setTimeout(resolve, 1000));
 
   const chartElement = await page.$("#chart");
-  await chartElement.screenshot({ path: "public/chart.png" });
+  await chartElement.screenshot({ path: "public/chart.png", omitBackground: true });
 
   await browser.close();
   console.log("Chart image saved to public/chart.png");

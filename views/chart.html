@@ -3,6 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Progress Chart</title>
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+    }
+    #chart {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -44,7 +56,8 @@
               beginAtZero: true,
               max: 100
             }
-          }
+          },
+          backgroundColor: 'transparent'
         }
       });
     };
